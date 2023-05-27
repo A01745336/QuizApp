@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pantalla de Juego</title>
+        <link rel="stylesheet" type="text/css" href="./styles/juego-style.css">
+        <link rel="stylesheet" type="text/css" href="./styles/common-style.css">
+      </head>
+<body>
+  <h1 class="title">Pantalla de Juego</h1>
+  
+  <p class="title">¡Bienvenido, <span id="username"></span>! El juego está por comenzar.</p>
+  
+  <div class="app">
+    <h1>Quiz</h1>
+    <div class="quiz">
+        <h2 id="quiesiton">Pregunta 1</h2>
+        <div id="answer-buttons">
+            <button class="btn">Answer 1</button>
+            <button class="btn">Answer 2</button>
+            <button class="btn">Answer 3</button>
+            <button class="btn">Answer 4</button>
+        </div>
+        <button id="next-btn">Siguiente</button>
+    </div>
+</div>
+  
+  <script>
+    // Obtener el nombre de usuario de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+    
+    // Mostrar el nombre de usuario en la pantalla
+    const usernameElement = document.getElementById('username');
+    usernameElement.textContent = username;
+  </script>
+</body>
+</html>
