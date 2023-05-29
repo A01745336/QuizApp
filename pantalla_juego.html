@@ -9,9 +9,30 @@
       </head>
 <body>
   <!-- ENCABEZADO-->
-  <div class="logo text-center " >
-    <img src="./images/KuizuLogo.PNG" alt="" width="300" height="250">
-  </div>
+  <nav class="navbar navbar-expand-lg navbar-light p-2 " >
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="./images/KuizuLogo.PNG" alt="" width="200" height="150">
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pantalla_usuario.html">My Lessons</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="puntuaciones.html">Hall of Fame</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <h1 class="p-3 fs-2 text-center text-primary">¡Bienvenide, <span class="text-warning"id="username"></span>! El juego está por comenzar.</h1>
 
 
