@@ -10,25 +10,10 @@ Necesitarás tener Python 3.7 o superior y pip instalado en tu sistema.
 
 Primero, clona este repositorio en tu máquina local utilizando `git`:
 
-`git clone https://github.com/<your-username>/AppQuizDjango
-`
-
-Despues:
-
-`cd AppQuizDjango`
+`git clone https://github.com/<your-username>/QuizApp`
 
 
-Para instalar las dependencias necesarias, primero es recomendable crear un entorno virtual para este proyecto. Puedes hacerlo con el siguiente comando en la consola:
-
-`python -m venv quizenv`
-
-
-Activa el entorno virtual con:
-
-`.\quizenv\Scripts\activate`
-
-
-Una vez activado el entorno virtual, instala las dependencias con:
+Instala las dependencias con:
 
 `pip install django`
 
@@ -37,17 +22,7 @@ Una vez activado el entorno virtual, instala las dependencias con:
 
 Para iniciar el proyecto Django, sigue estos pasos:
 
-1. Navega a la carpeta de tu proyecto, en este caso "AppQuizDjango": ``cd AppQuizDjango``
-
-2. Inicia el proyecto Django con el siguiente comando:
-``django-admin startproject quizapp``
-
-
-3. Navega a la carpeta del proyecto Django recién creado:
-``cd quizapp``
-
-
-4. Inicia la aplicación principal del proyecto:
+1. Inicia la aplicación principal del proyecto:
 ``py manage.py startapp main``
 
 
