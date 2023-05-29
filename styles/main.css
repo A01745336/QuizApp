@@ -21,3 +21,14 @@ body{
     }
 
 }
+
+footer{
+    background-color: #36088F;
+    min-height: 70px;
+}
+
+footer p{
+    color: white;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
