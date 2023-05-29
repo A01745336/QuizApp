@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'Aplicativo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'quizapp4',
+        'USER': 'admin',
+        'PASSWORD': 'password',
+        'HOST': 'database-2.c0fd1vp0jts0.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
     }
 }
 
