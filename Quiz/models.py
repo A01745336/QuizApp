@@ -1,9 +1,5 @@
 from django.db import models
-from django.conf import settings
-
 from django.contrib.auth.models import User
-
-import random
 
 class Pregunta(models.Model):
     NUMER_DE_RESPUESTAS_PERMITIDAS = 1
@@ -29,6 +25,7 @@ class ElegirRespuesta(models.Model):
 class QuizUsuario(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
     puntaje_total = models.DecimalField(verbose_name='Puntaje Total', default=0, decimal_places=2, max_digits=10)
+    cantidad_preguntas = models.PositiveIntegerField(verbose_name='Cantidad de preguntas', default=0)
 
     def crear_intentos(self, pregunta):
         intento = PreguntasRespondidas(pregunta=pregunta, quizUser=self)
