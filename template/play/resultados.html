@@ -13,18 +13,19 @@
         {% if respondida.respuesta.correcta %}
             <h4 class="text-success">¡Correcto! Tu respuesta es correcta</h4>
         {% else %}
-            <h4 class="text-danger">¡Incorrecto! Tu respuesta es incorrecta</h4>
-
-            {% for respuesta in respondida.pregunta.opciones.all %}
-                {% if respuesta.correcta %}
-                    <h4>La respuesta correcta es: <span class="text-success">{{respuesta.texto|safe}}</span></h4>
-                {% endif %}
-            {% endfor %}
+            <h4 class="text-danger">Lo siento. Tu respuesta es incorrecta</h4>
+            <p>
+                <strong>La respuesta correcta era:</strong>
+                {{respondida.pregunta.obtener_respuesta_correcta}}
+            </p>
         {% endif %}
 
-        <a href="{% url 'jugar' %}">
-            <button class="btn btn-success">Continuar con la siguiente pregunta</button>
-        </a>
+        <hr class="my-4">
+        {% if not es_ultima_pregunta %}
+            <a class="btn btn-info btn-lg" href="/jugar/?cantidad_preguntas={{cantidad_preguntas}}">Próxima pregunta</a>
+        {% else %}
+            <a class="btn btn-success btn-lg" href="{% url 'tablero' %}">Ver Resultados</a>
+        {% endif %}
     </div>
 </div>
 
