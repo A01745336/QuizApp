@@ -46,8 +46,6 @@ def jugar(request):
             raise Http404
 
         quiz_user.validar_intento(pregunta_respondida, opcion_seleccionada)
-        quiz_user.cantidad_preguntas -= 1
-        quiz_user.save()
 
         if quiz_user.intentos.count() < quiz_user.cantidad_preguntas:
             nuevas_preguntas = quiz_user.obtener_nuevas_preguntas(1)
@@ -59,12 +57,12 @@ def jugar(request):
         else:
             pregunta = None
 
-        if pregunta is None or quiz_user.cantidad_preguntas == 0:
+        if pregunta is None:
             # Redirige a la página de resultados si se han respondido todas las preguntas
             return redirect('resultado', pregunta_respondida_pk=pregunta_respondida.pk)
         else:
             # Redirige nuevamente a la vista 'jugar' con la cantidad de preguntas
-            return redirect(f'/jugar/?cantidad_preguntas={quiz_user.cantidad_preguntas}')
+            return redirect('jugar') + f'?cantidad_preguntas={quiz_user.cantidad_preguntas}'
 
     else:
         cantidad_preguntas = request.GET.get('cantidad_preguntas')
@@ -89,7 +87,6 @@ def jugar(request):
     }
 
     return render(request, 'play/jugar.html', context)
-
 
 
 
