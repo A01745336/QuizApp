@@ -77,11 +77,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# settings.py
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql.connector.django',
         'NAME': 'quizapp4',
         'USER': 'admin',
         'PASSWORD': 'password',
@@ -89,7 +87,6 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-
 
 
 # Password validation
