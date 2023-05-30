@@ -2,36 +2,114 @@
 
 {% block contenido %}
 
-<div class="container">
-	
-	<h1 class="text-center my-4"> 
-		<span class="badge badge-info">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hall of Fame</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .form-container {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .start-button {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .footer {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin-top: auto;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR-->
+    <nav class="navbar navbar-expand-lg navbar-light p-2 " >
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/static/images/KuizuLogo.png" alt="" width="200" height="150">
+            </a>
 
-			The {{contar_user}} best players of Kuizu!
-			
-		</span>
-	</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="http://127.0.0.1:8000/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/login/">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/registro/">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
+    <div class="titulo-formulario text-center">
+        <img src="/static/images/recurso4.png" alt="recurso4" class="">
+        <h1 class="p-3 fs-2 text-center text-primary">Top <span class="text-warning" id="ganadores">{{ contar_user }}</span> leaders!</h1>
+    </div>
 
-	<table class="table table-striped table-bodered">
-		<thead>
-			<tr>
-				<th>Position</th>
-				<th>User</th>
-				<th>Score</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for user_quiz in usuario_quiz %}
-				<tr>
-					<th>{{forloop.counter}}</th>
-					<th>{{user_quiz.usuario.username}}</th>
-					<th>{{user_quiz.puntaje_total}}</th>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_quiz in usuario_quiz %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ user_quiz.usuario.username }}</td>
+                <td>{{ user_quiz.puntaje_total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-</div>
+    <!-- FOOTER-->
+
+    <footer class="footer">
+        <p class="fs-5">Kuizu by Taiko.Co. All Rights Reserved</p>
+    </footer>
+
+</body>
+</html>
 
 {% endblock %}
