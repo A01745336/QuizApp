@@ -1,22 +1,31 @@
 from django.contrib import admin
 
-from .models import Pregunta, ElegirRespuesta, Quiz, QuizUsuario, PreguntasRespondidas, QuizSesion
+from .models import Pregunta, ElegirRespuesta, PreguntasRespondidas, QuizUsuario
+
+from .forms import ElegirInlineFormset
 
 class ElegirRespuestaInline(admin.TabularInline):
-    model = ElegirRespuesta
-    extra = 4
+	model = ElegirRespuesta
+	can_delete =False
+	max_num = ElegirRespuesta.MAXIMO_RESPUESTA
+	min_num = ElegirRespuesta.MAXIMO_RESPUESTA
+	formset = ElegirInlineFormset
 
 class PreguntaAdmin(admin.ModelAdmin):
-    inlines = [ElegirRespuestaInline]
+	model = Pregunta
+	inlines = (ElegirRespuestaInline, )
+	list_display = ['texto',]
+	search_fields = ['texto', 'preguntas__texto']
 
-class QuizSesionInline(admin.TabularInline):
-    model = QuizSesion
 
-class QuizUsuarioAdmin(admin.ModelAdmin):
-    inlines = [QuizSesionInline]
+class PreguntasRespondidasAdmin(admin.ModelAdmin):
+	list_display = ['pregunta', 'respuesta', 'correcta', 'puntaje_obtenido']
 
-admin.site.register(Pregunta, PreguntaAdmin)
-admin.site.register(Quiz)
-admin.site.register(QuizUsuario, QuizUsuarioAdmin)
+	class Meta:
+		model = PreguntasRespondidas
+
+
 admin.site.register(PreguntasRespondidas)
-admin.site.register(QuizSesion)
+admin.site.register(Pregunta, PreguntaAdmin)
+admin.site.register(ElegirRespuesta)
+admin.site.register(QuizUsuario)
