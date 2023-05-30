@@ -1,9 +1,5 @@
 from django.db import models
-from django.conf import settings
-
 from django.contrib.auth.models import User
-
-import random
 
 class Pregunta(models.Model):
     NUMER_DE_RESPUESTAS_PERMITIDAS = 1
@@ -22,9 +18,16 @@ class ElegirRespuesta(models.Model):
     correcta = models.BooleanField(verbose_name='¿Es esta la pregunta correcta?', default=False, null=False)
     texto = models.TextField(verbose_name='Texto de la respuesta')
 
-
     def __str__(self):
         return self.texto
+
+
+class Quiz(models.Model):
+    nombre = models.CharField(max_length=255, verbose_name='Nombre del quiz')
+    preguntas = models.ManyToManyField(Pregunta, verbose_name='Preguntas del quiz')
+
+    def __str__(self):
+        return self.nombre
 
 
 class QuizUsuario(models.Model):
@@ -41,7 +44,6 @@ class QuizUsuario(models.Model):
         if not preguntas_restantes.exists():
             return None
         return random.choice(preguntas_restantes)
-
 
     def validar_intento(self, pregunta_respondida, respuesta_selecionada):
         if pregunta_respondida.pregunta_id != respuesta_selecionada.pregunta_id:
@@ -76,5 +78,5 @@ class PreguntasRespondidas(models.Model):
     quizUser = models.ForeignKey(QuizUsuario, on_delete=models.CASCADE, related_name='intentos')
     pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE)
     respuesta = models.ForeignKey(ElegirRespuesta, on_delete=models.CASCADE, null=True)
-    correcta  = models.BooleanField(verbose_name='¿Es esta la respuesta correcta?', default=False, null=False)
+    correcta = models.BooleanField(verbose_name='¿Es esta la respuesta correcta?', default=False, null=False)
     puntaje_obtenido = models.DecimalField(verbose_name='Puntaje Obtenido', default=0, decimal_places=2, max_digits=6)
