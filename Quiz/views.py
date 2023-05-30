@@ -46,6 +46,7 @@ def jugar(request):
             raise Http404
 
         quiz_user.validar_intento(pregunta_respondida, opcion_seleccionada)
+        
 
         if quiz_user.intentos.count() < quiz_user.cantidad_preguntas:
             nuevas_preguntas = quiz_user.obtener_nuevas_preguntas(1)
@@ -58,18 +59,36 @@ def jugar(request):
             pregunta = None
 
         if pregunta is None:
+            # Actualizar la variable cantidad_preguntas
+            quiz_user.cantidad_preguntas -= 1
+            quiz_user.save()
+            
+            # Obtener la respuesta correcta
+            respuesta_correcta = pregunta_respondida.pregunta.opciones.get(correcta=True)
+            
+            # Redirige a la página de resultados si se han respondido todas las preguntas
+            
             # Redirige a la página de resultados si se han respondido todas las preguntas
             return redirect('resultado', pregunta_respondida_pk=pregunta_respondida.pk)
         else:
             # Redirige nuevamente a la vista 'jugar' con la cantidad de preguntas
-            return redirect('jugar') + f'?cantidad_preguntas={quiz_user.cantidad_preguntas}'
-
+            quiz_user.cantidad_preguntas -= 1
+            quiz_user.save()
+            # Redirige nuevamente a la vista 'jugar' con la cantidad de preguntas
+            return HttpResponseRedirect(reverse('jugar') + f'?cantidad_preguntas={quiz_user.cantidad_preguntas}')
+        
+        
+        #quiz_user.validar_intento(pregunta_respondida, opcion_seleccionada)
+        # Redirigir al usuario a la página de resultados inmediatamente después de responder a una pregunta
+        #return redirect('resultado', pregunta_respondida_pk=pregunta_respondida.pk)
+    
     else:
         cantidad_preguntas = request.GET.get('cantidad_preguntas')
         if cantidad_preguntas:
             cantidad_preguntas = int(cantidad_preguntas)
+            request.session['cantidad_preguntas'] = cantidad_preguntas  # Save to session
         else:
-            cantidad_preguntas = 1
+            cantidad_preguntas = request.session.get('cantidad_preguntas', 1)  # Get from session if already set
 
         quiz_user.cantidad_preguntas = cantidad_preguntas
         quiz_user.save()
@@ -94,7 +113,8 @@ def resultado_pregunta(request, pregunta_respondida_pk):
     respondida = get_object_or_404(PreguntasRespondidas, pk=pregunta_respondida_pk)
 
     context = {
-        'respondida': respondida
+        'respondida': respondida,
+        'respuesta_correcta': respondida.respuesta if respondida.correcta else None,
     }
     return render(request, 'play/resultados.html', context)
 

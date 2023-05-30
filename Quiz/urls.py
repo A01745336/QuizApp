@@ -23,6 +23,10 @@ urlpatterns = [
 
 	
 	path('jugar/', jugar, name='jugar'),
-	path('resultado/<int:pregunta_respondida_pk>/', resultado_pregunta, name='resultado'),
+	#path('resultado/<int:pregunta_respondida_pk>/', resultado_pregunta, name='resultado'),
+ 	path('resultado/<int:pregunta_respondida_pk>/', resultado_pregunta, name='resultado'),
+
+	#path('resultado/<int:pregunta_respondida_pk>/<int:respuesta_correcta_pk>/', resultado_pregunta, name='resultado'),
+
 
 ]
