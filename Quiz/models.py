@@ -53,9 +53,9 @@ class QuizUsuario(models.Model):
 			pregunta_respondida.correcta = True
 			pregunta_respondida.puntaje_obtenido = respuesta_selecionada.pregunta.max_puntaje
 			pregunta_respondida.respuesta = respuesta_selecionada
-
 		else:
 			pregunta_respondida.respuesta = respuesta_selecionada
+			pregunta_respondida.puntaje_obtenido = 0
 
 		pregunta_respondida.save()
 
@@ -63,9 +63,13 @@ class QuizUsuario(models.Model):
 
 	def actualizar_puntaje(self):
 		puntaje_actualizado = self.intentos.filter(correcta=True).aggregate(
-			models.Sum('puntaje_obtenido'))['puntaje_obtenido__sum']
+			total_puntaje=models.Sum('puntaje_obtenido'))['total_puntaje']
 
-		self.puntaje_total = puntaje_actualizado
+		if puntaje_actualizado is not None:
+			self.puntaje_total = puntaje_actualizado
+		else:
+			self.puntaje_total = 0
+
 		self.save()
 
 class PreguntasRespondidas(models.Model):
