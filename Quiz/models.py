@@ -1,22 +1,25 @@
 from django.db import models
+from django.conf import settings
+
 from django.contrib.auth.models import User
+
 import random
 
 class Pregunta(models.Model):
-    NUMERO_DE_RESPUESTAS_PERMITIDAS = 1
+    NUMER_DE_RESPUESTAS_PERMITIDAS = 1
 
     texto = models.TextField(verbose_name='Texto de la pregunta')
-    max_puntaje = models.DecimalField(verbose_name='Máximo Puntaje', default=3, decimal_places=2, max_digits=6)
+    max_puntaje = models.DecimalField(verbose_name='Maximo Puntaje', default=3, decimal_places=2, max_digits=6)
 
     def __str__(self):
-        return self.texto
+        return self.texto 
 
 
 class ElegirRespuesta(models.Model):
     MAXIMO_RESPUESTA = 4
 
     pregunta = models.ForeignKey(Pregunta, related_name='opciones', on_delete=models.CASCADE)
-    correcta = models.BooleanField(verbose_name='¿Es esta la respuesta correcta?', default=False)
+    correcta = models.BooleanField(verbose_name='¿Es esta la pregunta correcta?', default=False, null=False)
     texto = models.TextField(verbose_name='Texto de la respuesta')
 
     def __str__(self):
@@ -24,25 +27,34 @@ class ElegirRespuesta(models.Model):
 
 
 class Quiz(models.Model):
-    nombre = models.CharField(max_length=255)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     preguntas = models.ManyToManyField(Pregunta, related_name='quizes')
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.nombre
+        return f"Quiz - {self.usuario.username}"
+
+
+class PreguntasRespondidas(models.Model):
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE)
+    respuesta = models.ForeignKey(ElegirRespuesta, on_delete=models.CASCADE, null=True)
+    correcta = models.BooleanField(verbose_name='¿Es esta la respuesta correcta?', default=False, null=False)
+    puntaje_obtenido = models.DecimalField(verbose_name='Puntaje Obtenido', default=0, decimal_places=2, max_digits=6)
+
+    def __str__(self):
+        return f"{self.quiz} - Pregunta: {self.pregunta}"
 
 
 class QuizUsuario(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    quizes = models.ManyToManyField(Quiz, through='PreguntasRespondidas')
     puntaje_total = models.DecimalField(verbose_name='Puntaje Total', default=0, decimal_places=2, max_digits=10)
 
     def crear_intentos(self, pregunta):
-        intento = PreguntasRespondidas(pregunta=pregunta, quiz_usuario=self)
+        intento = PreguntasRespondidas(pregunta=pregunta, quiz=self)
         intento.save()
 
     def obtener_nuevas_preguntas(self):
-        respondidas = PreguntasRespondidas.objects.filter(quiz_usuario=self).values_list('pregunta__pk', flat=True)
+        respondidas = PreguntasRespondidas.objects.filter(quiz=self).values_list('pregunta__pk', flat=True)
         preguntas_restantes = Pregunta.objects.exclude(pk__in=respondidas)
         if not preguntas_restantes.exists():
             return None
@@ -52,13 +64,12 @@ class QuizUsuario(models.Model):
         if pregunta_respondida.pregunta_id != respuesta_seleccionada.pregunta_id:
             return
 
-        pregunta_respondida.respuesta_seleccionada = respuesta_seleccionada
+        pregunta_respondida.respuesta = respuesta_seleccionada
         if respuesta_seleccionada.correcta:
             pregunta_respondida.correcta = True
             pregunta_respondida.puntaje_obtenido = respuesta_seleccionada.pregunta.max_puntaje
-            pregunta_respondida.respuesta = respuesta_seleccionada
         else:
-            pregunta_respondida.respuesta = respuesta_seleccionada
+            pregunta_respondida.correcta = False
             pregunta_respondida.puntaje_obtenido = 0
 
         pregunta_respondida.save()
@@ -74,14 +85,3 @@ class QuizUsuario(models.Model):
             self.puntaje_total = 0
 
         self.save()
-
-
-class PreguntasRespondidas(models.Model):
-    quiz_usuario = models.ForeignKey(QuizUsuario, on_delete=models.CASCADE, related_name='intentos')
-    pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE)
-    respuesta = models.ForeignKey(ElegirRespuesta, on_delete=models.CASCADE, null=True)
-    correcta = models.BooleanField(verbose_name='¿Es esta la respuesta correcta?', default=False)
-    puntaje_obtenido = models.DecimalField(verbose_name='Puntaje Obtenido', default=0, decimal_places=2, max_digits=6)
-
-    def __str__(self):
-        return f'Intento: {self.pregunta} - Usuario: {self.quiz_usuario.usuario}'
