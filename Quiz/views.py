@@ -11,7 +11,7 @@ def inicio(request):
 
 	context = {
 
-		'bienvenido': 'Bienvenido'
+		'bienvenido': 'Welcome'
 
 	}
 
