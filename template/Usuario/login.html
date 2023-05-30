@@ -4,30 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Log In</title>
+    <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
     <style>
         body {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
             min-height: 100vh;
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
         }
         
         .container {
-            flex: 1;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-        }
-        
-        .form-container {
             max-width: 400px;
             width: 100%;
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 8px;
+            background-color: #fff;
         }
         
         .form-group {
@@ -44,14 +44,14 @@
             color: white;
             padding: 1rem;
             text-align: center;
-            margin-top: auto;
+            width: 100%;
         }
     </style>
 </head>
 <body>
 
   <!-- NAVBAR-->
-  <nav class="navbar navbar-expand-lg navbar-light p-2 " >
+  <nav class="navbar navbar-expand-lg navbar-light p-2">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img src="/static/images/KuizuLogo.png" alt="" width="200" height="150">
@@ -72,30 +72,29 @@
       </div>
     </div>
   </nav>
+  
   <!-- FORMULARIO -->
   <section>
     <div class="container">
-      <div class="form-container">
-        <div class="titulo-formulario text-center">
-          <img src="/static/images/recurso.png" alt="recurso1" class="">
-          <h1 class="text-center text-primary mt-4">Let's Play!</h1>
-          <p class="fs-5 text-center">Write your username and password to start</p>
-        </div>
-        <form method="POST">
-          {% csrf_token %}
-          <div class="form-group">
-            <label for="username" class="title">Username</label>
-            <input type="text" class="form-control fs-5" id="username" name="username" placeholder="Username" required>
-          </div>
-          <div class="form-group">
-            <label for="password" class="title mt-4">Password</label>
-            <input type="password" class="form-control fs-5" id="password" name="password" placeholder="Password" required>
-          </div>
-          <div class="form-group start-button">
-            <button type="submit" class="fs-5 px-4 pb-1">START</button>
-          </div>
-        </form>
+      <div class="titulo-formulario text-center">
+        <img src="/static/images/recurso.png" alt="recurso1" class="">
+        <h1 class="text-center text-primary mt-4">Let's Play!</h1>
+        <p class="fs-5 text-center">Write your username and password to start</p>
       </div>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="username" class="title">Username</label>
+          <input type="text" class="form-control fs-5" id="username" name="username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+          <label for="password" class="title mt-4">Password</label>
+          <input type="password" class="form-control fs-5" id="password" name="password" placeholder="Password" required>
+        </div>
+        <div class="form-group start-button">
+          <button type="submit" class="fs-5 px-4 pb-1 btn btn-primary">START</button>
+        </div>
+      </form>
     </div>
   </section>
 
