@@ -29,10 +29,10 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pantalla_usuario.html">Sign In</a>
+            <a class="nav-link" href="/login/">Sign In</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="puntuaciones.html">Hall of Fame</a>
+            <a class="nav-link" href="resultados.html">Hall of Fame</a>
           </li>
         </ul>
       </div>
@@ -114,12 +114,16 @@
 
   </footer>
 
+  <!-- Formulario de inicio de sesión -->
+  <form method="POST">
+    {% csrf_token %}
 
+    {{form.as_p}}
 
-
-
-
-
+    <button type="submit">
+      Enviar
+    </button>
+  </form>
 
 </body>
 </html>
