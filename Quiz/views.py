@@ -111,10 +111,11 @@ def jugar(request):
 
 def resultado_pregunta(request, pregunta_respondida_pk):
     respondida = get_object_or_404(PreguntasRespondidas, pk=pregunta_respondida_pk)
+    quiz_user = QuizUsuario.objects.get(usuario=request.user)
 
     context = {
         'respondida': respondida,
-        'respuesta_correcta': respondida.respuesta if respondida.correcta else None,
+        'cantidad_preguntas': quiz_user.cantidad_preguntas
     }
     return render(request, 'play/resultados.html', context)
 
