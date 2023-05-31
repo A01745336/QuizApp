@@ -9,7 +9,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '54.162.66.153',  # supongamos que esta es la dirección IP pública de tu instancia EC2
-    'i-059a5e7586ca29e6c.compute-1.amazonaws.com',  # el nombre de dominio público de AWS para tu instancia EC2
+    'ec2-54-162-66-153.compute-1.amazonaws.com',  # el nombre de dominio público de AWS para tu instancia EC2
 ]
 
 INSTALLED_APPS = [
