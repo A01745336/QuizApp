@@ -58,6 +58,7 @@ def jugar(request):
         else:
             pregunta = None
 
+        
         if pregunta is None:
             # Actualizar la variable cantidad_preguntas
             quiz_user.cantidad_preguntas -= 1
