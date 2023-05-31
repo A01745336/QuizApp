@@ -29,7 +29,7 @@ SECRET_KEY = '^adwke-#3oll)1@5wu-%p=d4%i_6vuo+hg@8(kgvoyubpn(*jc'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '54.162.66.153',
+    '44.211.170.92',
     'ec2-54-162-66-153.compute-1.amazonaws.com', 
 ]
 
