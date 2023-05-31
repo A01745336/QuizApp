@@ -6,25 +6,29 @@
     <div class="jumbotron my-4">
         <h3 class="text-info">{{respondida.pregunta.texto|safe}}</h3>
         <p>
-            <strong>Tu respuesta:</strong>
+            <strong>Your answer:</strong>
             {{respondida.respuesta.texto|safe}}
         </p>
 
         {% if respondida.respuesta.correcta %}
-            <h4 class="text-success">¡Correcto! Tu respuesta es correcta</h4>
+            <h4 class="text-success">Yeah! This is the correct answer</h4>
         {% else %}
-            <h4 class="text-danger">Lo siento. Tu respuesta es incorrecta</h4>
+            <h4 class="text-danger">Sorry! The answer is wrong</h4>
             <p>
-                <strong>La respuesta correcta era:</strong>
-                {{respondida.pregunta.obtener_respuesta_correcta}}
+                <strong>The correct answer is:</strong>
+                {% for opcion in respondida.pregunta.opciones.all %}
+                    {% if opcion.correcta %}
+                        {{ opcion.texto }}
+                    {% endif %}
+                {% endfor %}                                                                                             
             </p>
         {% endif %}
 
         <hr class="my-4">
         {% if not es_ultima_pregunta %}
-            <a class="btn btn-info btn-lg" href="{% url 'jugar' %}?cantidad_preguntas={{cantidad_preguntas}}">Próxima pregunta</a>
+            <a class="btn btn-info btn-lg" href="{% url 'jugar' %}?cantidad_preguntas={{cantidad_preguntas}}">Next Question</a>
         {% else %}
-            <a class="btn btn-success btn-lg" href="{% url 'tablero' %}">Ver Resultados</a>
+            <a class="btn btn-success btn-lg" href="{% url 'tablero' %}">View Resukts</a>
         {% endif %}
     </div>
 </div>
