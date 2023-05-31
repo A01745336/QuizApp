@@ -30,7 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '44.211.170.92',
-    'ec2-54-162-66-153.compute-1.amazonaws.com', 
+    'ec2-54-162-66-153.compute-1.amazonaws.com',
 ]
 
 INSTALLED_APPS = [
@@ -113,4 +113,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [BASE_DIR / 'static',]
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

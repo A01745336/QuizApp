@@ -1,0 +1,44 @@
+body {
+    background-color: #1a004d;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .appUsuario {
+    text-align: center;
+  }
+  
+  form {
+    width: 300px;
+    margin-top: 20px;
+  }
+  
+  .title {
+    color: #fff;
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  input[type="text"] {
+    padding: 5px;
+    font-size: 16px;
+  }
+  input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
