@@ -17,7 +17,7 @@ You need to install Python 3.7 or higher versions and pip library in your comput
 
 ## Web Location
 
-This repository has hosted in an AWS EC2 instance. You can acces to this link: [www.taikosuperstartquiz.com](http://44.211.170.92:8000/)
+This repository has hosted in an AWS EC2 instance. You can acces to this link: [www.taikosuperstartquiz.com](http://3.235.149.26:8000/)
 
 ## Install Local Repository
 
