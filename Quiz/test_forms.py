@@ -34,4 +34,3 @@ class TestForms(TestCase):
 
         self.assertFalse(form.is_valid())
         self.assertEquals(len(form.errors), 6)  # Assuming that all fields in your form are required
-
