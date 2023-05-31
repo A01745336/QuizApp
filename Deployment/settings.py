@@ -1,3 +1,24 @@
+# Final Project: Quiz Application with Microservices
+# Date: 30-May-2023
+# Authors:
+#           Diego Alejandro Balderas Tlahuitzo - A01745336
+#           Gilberto André García Gaytán - A01753176
+#           Paula Sophia Santoyo Arteaga - A01745312
+#           Ricardo Ramírez Condado - A01379299
+#           Paola Danae López Pérez- A01745689
+
+# This is the settings file for a Django web application. It contains various configurations such as
+# database settings, installed apps, middleware, and static file directories. The `import os` and
+# `from pathlib import Path` lines are used to set the `BASE_DIR` variable to the parent directory of
+# the current file, which is commonly used in Django projects to reference other files and
+# directories. The `SECRET_KEY` is a unique string used for cryptographic signing and should be kept
+# secret. The `ALLOWED_HOSTS` list contains the domain names or IP addresses that the application is
+# allowed to run on. The `INSTALLED_APPS` list contains the names of all the Django apps that are
+# installed in the project. The `MIDDLEWARE` list contains the middleware classes that are used in the
+# project. The `TEMPLATES` list contains the configuration for the Django template engine. The
+# `DATABASES` dictionary contains the settings for the database that the application will use. The
+# `STATICFILES_DIRS` list contains the directories where static files (such as CSS and JavaScript
+# files) are stored.
 import os
 from pathlib import Path
 
@@ -8,8 +29,8 @@ SECRET_KEY = '^adwke-#3oll)1@5wu-%p=d4%i_6vuo+hg@8(kgvoyubpn(*jc'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '54.162.66.153',  # supongamos que esta es la dirección IP pública de tu instancia EC2
-    'ec2-54-162-66-153.compute-1.amazonaws.com',  # el nombre de dominio público de AWS para tu instancia EC2
+    '54.162.66.153',
+    'ec2-54-162-66-153.compute-1.amazonaws.com', 
 ]
 
 INSTALLED_APPS = [

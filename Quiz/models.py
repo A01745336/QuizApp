@@ -1,6 +1,18 @@
+# Final Project: Quiz Application with Microservices
+# Date: 30-May-2023
+# Authors:
+#           Diego Alejandro Balderas Tlahuitzo - A01745336
+#           Gilberto André García Gaytán - A01753176
+#           Paula Sophia Santoyo Arteaga - A01745312
+#           Ricardo Ramírez Condado - A01379299
+#           Paola Danae López Pérez- A01745689
+
+# Importing the `models` module from Django's database abstraction layer and the `User` model from
+# Django's built-in authentication system.
 from django.db import models
 from django.contrib.auth.models import User
 
+# This is a Django model class for a question with a text field and maximum score.
 class Pregunta(models.Model):
     NUMER_DE_RESPUESTAS_PERMITIDAS = 1
 
@@ -11,6 +23,8 @@ class Pregunta(models.Model):
         return self.texto 
 
 
+# This is a model class for choosing a response with a maximum of 4 options, related to a question and
+# with a boolean field indicating if it's the correct answer.
 class ElegirRespuesta(models.Model):
     MAXIMO_RESPUESTA = 4
 
@@ -22,6 +36,8 @@ class ElegirRespuesta(models.Model):
         return self.texto
 
 
+# The QuizUsuario class defines methods for creating quiz attempts, getting new quiz questions, and
+# validating quiz attempts for a user.
 class QuizUsuario(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
     puntaje_total = models.DecimalField(verbose_name='Puntaje Total', default=0, decimal_places=2, max_digits=10)
@@ -54,6 +70,9 @@ class QuizUsuario(models.Model):
         self.actualizar_puntaje()
 
     def actualizar_puntaje(self):
+        """
+        This function updates the total score of a user based on their correct attempts.
+        """
         puntaje_actualizado = self.intentos.filter(correcta=True).aggregate(
             total_puntaje=models.Sum('puntaje_obtenido'))['total_puntaje']
 
@@ -65,6 +84,8 @@ class QuizUsuario(models.Model):
         self.save()
 
 
+# This is a model class for storing answered questions in a quiz, including the user, question, chosen
+# answer, correctness, and obtained score.
 class PreguntasRespondidas(models.Model):
     quizUser = models.ForeignKey(QuizUsuario, on_delete=models.CASCADE, related_name='intentos')
     pregunta = models.ForeignKey(Pregunta, on_delete=models.CASCADE)
